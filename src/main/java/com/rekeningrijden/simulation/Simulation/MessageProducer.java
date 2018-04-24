@@ -1,9 +1,11 @@
 package com.rekeningrijden.simulation.Simulation;
 
-import com.rekeningrijden.simulation.Dtos.TransLocationDto;
+import com.rekeningrijden.europe.dtos.TransLocationDto;
 import org.json.JSONObject;
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 public class MessageProducer {
     private Gateway SimulationToItaly;

@@ -3,19 +3,23 @@ package com.rekeningrijden.simulation.Simulation;
 import com.rekeningrijden.simulation.Models.Car;
 import com.rekeningrijden.simulation.Models.Coordinate;
 import com.rekeningrijden.simulation.Models.Route;
-
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
-
 import com.rekeningrijden.simulation.Models.SubRoute;
 import io.jenetics.jpx.GPX;
 import io.jenetics.jpx.Track;
 import io.jenetics.jpx.TrackSegment;
 import io.jenetics.jpx.WayPoint;
-import org.json.*;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 public class CarSimulator {
 

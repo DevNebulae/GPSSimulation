@@ -1,6 +1,6 @@
 package com.rekeningrijden.simulation.Simulation;
 
-import com.rekeningrijden.simulation.Dtos.TransLocationDto;
+import com.rekeningrijden.europe.dtos.TransLocationDto;
 import com.rekeningrijden.simulation.Models.Car;
 import com.rekeningrijden.simulation.Models.Coordinate;
 import com.rekeningrijden.simulation.Models.Route;
