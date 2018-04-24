@@ -1,8 +1,8 @@
-package Simulation;
+package com.rekeningrijden.simulation.Simulation;
 
-import Models.Car;
-import Models.Coordinate;
-import Models.Route;
+import com.rekeningrijden.simulation.Models.Car;
+import com.rekeningrijden.simulation.Models.Coordinate;
+import com.rekeningrijden.simulation.Models.Route;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import Models.SubRoute;
+import com.rekeningrijden.simulation.Models.SubRoute;
 import io.jenetics.jpx.GPX;
 import io.jenetics.jpx.Track;
 import io.jenetics.jpx.TrackSegment;

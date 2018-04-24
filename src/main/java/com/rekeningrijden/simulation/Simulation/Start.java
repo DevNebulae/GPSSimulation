@@ -1,4 +1,4 @@
-package Simulation;
+package com.rekeningrijden.simulation.Simulation;
 
 public class Start {
     public static void main(String args[]) throws InterruptedException {

@@ -1,6 +1,6 @@
-package Simulation;
+package com.rekeningrijden.simulation.Simulation;
 
-import Dtos.TransLocationDto;
+import com.rekeningrijden.simulation.Dtos.TransLocationDto;
 import org.json.JSONObject;
 
 import java.io.*;
@@ -42,7 +42,7 @@ public class MessageProducer {
             default:
                 throw new Exception();
         }
-        System.out.println("Simulation has send the payload to the queue.");
+        System.out.println("com.rekeningrijden.simulation.Simulation has send the payload to the queue.");
     }
 
     private byte[] convertPayLoadToBytes(String payload) throws IOException {

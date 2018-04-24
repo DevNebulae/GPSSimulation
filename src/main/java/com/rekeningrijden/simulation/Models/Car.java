@@ -1,6 +1,6 @@
-package Models;
+package com.rekeningrijden.simulation.Models;
 
-import Dtos.TransLocationDto;
+import com.rekeningrijden.simulation.Dtos.TransLocationDto;
 
 import java.util.Timer;
 

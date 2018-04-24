@@ -1,4 +1,4 @@
-package Dtos;
+package com.rekeningrijden.simulation.Dtos;
 
 import java.io.Serializable;
 

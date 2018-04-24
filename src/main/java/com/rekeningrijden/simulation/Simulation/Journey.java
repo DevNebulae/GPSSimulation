@@ -1,10 +1,10 @@
-package Simulation;
+package com.rekeningrijden.simulation.Simulation;
 
-import Dtos.TransLocationDto;
-import Models.Car;
-import Models.Coordinate;
-import Models.Route;
-import Models.SubRoute;
+import com.rekeningrijden.simulation.Dtos.TransLocationDto;
+import com.rekeningrijden.simulation.Models.Car;
+import com.rekeningrijden.simulation.Models.Coordinate;
+import com.rekeningrijden.simulation.Models.Route;
+import com.rekeningrijden.simulation.Models.SubRoute;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

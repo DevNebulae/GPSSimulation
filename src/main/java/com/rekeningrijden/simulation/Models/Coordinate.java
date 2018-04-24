@@ -1,4 +1,4 @@
-package Models;
+package com.rekeningrijden.simulation.Models;
 
 public class Coordinate {
     private Double lat;

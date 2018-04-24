@@ -1,4 +1,4 @@
-package Simulation;
+package com.rekeningrijden.simulation.Simulation;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
