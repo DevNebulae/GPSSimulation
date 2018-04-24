@@ -1,0 +1,30 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+
+group = 'SimulationSystemERR'
+version = '1.1.0'
+description = """"""
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+jar {
+    manifest {
+        attributes "Main-Class": "com.rekeningrijden.simulation.Simulation.Start"
+    }
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+repositories {
+     maven { url "https://jitpack.io" }
+     mavenCentral()
+}
+dependencies {
+    compile group: 'org.json', name: 'json', version:'20180130'
+    compile group: 'com.rabbitmq', name: 'amqp-client', version:'5.2.0'
+    compile group: 'org.apache.cassandra', name: 'cassandra-all', version:'0.8.1'
+    compile group: 'io.jenetics', name: 'jpx', version:'1.3.0'
+    compile group: 'com.github.S62-Europa', name: 'EuropaInterfaces', version:'1.1.0'
+}
