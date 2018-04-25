@@ -27,6 +27,7 @@ repositories {
      mavenCentral()
 }
 dependencies {
+    compile group: 'com.google.guava', name: 'guava', version: '24.1-jre'
     compile group: 'org.json', name: 'json', version:'20180130'
     compile group: 'com.rabbitmq', name: 'amqp-client', version:'5.2.0'
     compile group: 'org.apache.cassandra', name: 'cassandra-all', version:'0.8.1'
