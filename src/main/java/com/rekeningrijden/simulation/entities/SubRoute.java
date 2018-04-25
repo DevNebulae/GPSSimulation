@@ -1,23 +1,21 @@
-package com.rekeningrijden.simulation.Models;
+package com.rekeningrijden.simulation.entities;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SubRoute {
     private String countryCode; //Country the car is driving in
-    private String resourcePath;
     private List<Coordinate> coordinates;
     private boolean subRouteDriven;
 
-    public SubRoute(String countryCode, String resourcePath) {
+    public SubRoute(String countryCode) {
         coordinates = new ArrayList<>();
         this.countryCode = countryCode;
-        this.resourcePath = resourcePath;
         this.subRouteDriven = false;
     }
 
-    public String getResourcePath() {
-        return resourcePath;
+    public List<Coordinate> getCoordinates() {
+        return coordinates;
     }
 
     public boolean isSubRouteDriven() {

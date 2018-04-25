@@ -1,4 +1,4 @@
-package com.rekeningrijden.simulation.Models;
+package com.rekeningrijden.simulation.entities;
 
 import java.util.List;
 
