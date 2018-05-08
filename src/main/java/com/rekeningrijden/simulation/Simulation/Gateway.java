@@ -13,8 +13,10 @@ public class Gateway {
     public Channel channel;
 
     public Gateway() {
+        String host = System.getProperty("rabbitmq.host");
+
         factory = new ConnectionFactory();
-        factory.setHost("localhost");
+        factory.setHost(host);
     }
 
     public void connect() {
@@ -24,6 +26,7 @@ public class Gateway {
         }
         catch (Exception e) {
             logger.fatal("Connection with the message queue could not be established.");
+            logger.fatal(e.toString());
             System.exit(1);
         }
     }
