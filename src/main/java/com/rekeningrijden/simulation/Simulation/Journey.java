@@ -1,10 +1,11 @@
 package com.rekeningrijden.simulation.Simulation;
 
 import com.rekeningrijden.europe.dtos.TransLocationDto;
-import com.rekeningrijden.simulation.Models.Car;
-import com.rekeningrijden.simulation.Models.Coordinate;
-import com.rekeningrijden.simulation.Models.Route;
-import com.rekeningrijden.simulation.Models.SubRoute;
+import com.rekeningrijden.simulation.entities.Car;
+import com.rekeningrijden.simulation.entities.Coordinate;
+import com.rekeningrijden.simulation.entities.Route;
+import com.rekeningrijden.simulation.entities.SubRoute;
+import org.apache.log4j.Logger;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -14,6 +15,8 @@ import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 public class Journey extends Thread {
+    private final static Logger logger = Logger.getLogger(Journey.class);
+
     private CarSimulator carSimulator;
     private MessageProducer messageProducer;
     private Car car;
@@ -46,14 +49,13 @@ public class Journey extends Thread {
                             getDateTimeNowIso8601UTC(),
                             car.getOriginCountry());
                     messageProducer.sendTransLocation(sr.getCountryCode(), dto);
-
-                    System.out.println("Lat: " + coor.getLat() + " - Lon: " + coor.getLon());
+                    logger.debug("Lat: " + coor.getLat() + " - Lon: " + coor.getLon());
 
                     Thread.sleep(1000);
                 }
 
                 if (route.isRouteDriven()){
-                    System.out.println("Thread sleeping for 15 minutes");
+                    logger.debug("Thread sleeping for 15 minutes");
                     TimeUnit.MINUTES.sleep(15);
                     this.route = carSimulator.getNewRoute();
                 }
