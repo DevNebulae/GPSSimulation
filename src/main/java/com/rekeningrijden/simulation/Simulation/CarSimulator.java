@@ -9,6 +9,7 @@ import com.rekeningrijden.simulation.entities.SubRoute;
 import io.jenetics.jpx.GPX;
 import io.jenetics.jpx.Track;
 import io.jenetics.jpx.TrackSegment;
+import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -24,6 +25,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class CarSimulator {
+    private final static Logger logger = Logger.getLogger(CarSimulator.class);
 
     private List<Car> cars;
     private List<Route> routes;
@@ -59,14 +61,15 @@ public class CarSimulator {
             String country = jsonobject.getString("country");
             Car newCar = new Car(id, country);
             cars.add(newCar);
-            System.out.println(newCar.toString());
         }
+
+        logger.debug(cars.size() + " cars have been initialized.");
     }
 
     private void loadRoutesFromGPX() {
         String routesRoot = Resources.getResource("routes/").getPath();
         Path routesRootPath = Paths.get(routesRoot);
-        Map<String, List<SubRoute>> subroutes = new HashMap<>();
+        Map<String, List<SubRoute>> intermediateRoutes = new HashMap<>();
 
         try {
             /**
@@ -94,7 +97,7 @@ public class CarSimulator {
                         Matcher matcher = pattern.matcher(subrouteResource);
 
                         if (!matcher.find()) {
-                            System.out.println("The convention determined by the regex could not be found for the file with the location " + subrouteResource);
+                            logger.warn("The convention determined by the regex could not be found for the file with the location " + subrouteResource);
                             return;
                         }
 
@@ -103,6 +106,10 @@ public class CarSimulator {
                         SubRoute subroute = new SubRoute(countryCode);
 
                         try {
+                            /**
+                             * Read the GPX file from the resources folder and
+                             * map it to a coordinate.
+                             */
                             GPX tracks = GPX.read(Resources.getResource("routes/" + subrouteResource).openStream());
                             List<Coordinate> coordinates = tracks
                                     .tracks()
@@ -116,13 +123,20 @@ public class CarSimulator {
                             e.printStackTrace();
                         }
 
-                        if (!subroutes.containsKey(routeName))
-                            subroutes.put(routeName, new ArrayList<>());
+                        /**
+                         * If the route does not exist yet in the map, create it
+                         * with a blank list of subroutes.
+                         */
+                        if (!intermediateRoutes.containsKey(routeName))
+                            intermediateRoutes.put(routeName, new ArrayList<>());
 
-                        subroutes.get(routeName).add(subroute);
+                        /**
+                         * Add the subroutes to the map.
+                         */
+                        intermediateRoutes.get(routeName).add(subroute);
                     });
 
-            this.routes = subroutes
+            this.routes = intermediateRoutes
                     .entrySet()
                     .stream()
                     .map(entrySet -> new Route(entrySet.getKey(), entrySet.getValue()))
