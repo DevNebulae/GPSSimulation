@@ -1,3 +1,3 @@
 package com.rekeningrijden.simulation.entities
 
-class Coordinate(var lat: Double?, val lon: Double?)
+data class Coordinate(val lat: Double, val lon: Double)

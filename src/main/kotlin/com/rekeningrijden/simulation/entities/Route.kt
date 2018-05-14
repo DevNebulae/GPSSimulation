@@ -10,16 +10,13 @@ package com.rekeningrijden.simulation.entities
  * * Route 3: contains a route in Italy, Germany, the Netherlands and Sweden.
  * * Et cetera...
  */
-class Route(
-        private val routeNumber: String,
-
-        val subRoutes: List<SubRoute>
+data class Route(
+        val routeNumber: String,
+        val subRoutes: List<SubRoute>,
+        var isRouteDriven: Boolean = false
 ) {
-    var isRouteDriven: Boolean = false
 
     fun setAllSubRoutesToFalse() {
-        for (sr in subRoutes) {
-            sr.isSubRouteDriven = false
-        }
+        this.subRoutes.forEach { it.isSubRouteDriven = false }
     }
 }
