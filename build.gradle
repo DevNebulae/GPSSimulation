@@ -53,6 +53,7 @@ dependencies {
     compile("org.jetbrains.kotlin:kotlin-reflect")
     compile("org.springframework:spring-core:5.0.6.RELEASE")
     compile("org.apache.cassandra:cassandra-all:0.8.1")
+    testCompile('junit:junit:4.12')
 }
 compileKotlin {
     kotlinOptions {
