@@ -14,7 +14,7 @@ class MessageProducer {
     private var SimulationToTheNetherlands: Gateway? = null
     private var SimulationToBelgium: Gateway? = null
     private var SimulationToFinland: Gateway? = null
-    
+
     private val mapper = ObjectMapper()
 
     init {
@@ -27,12 +27,14 @@ class MessageProducer {
 
     @Throws(Exception::class)
     fun sendTransLocation(countryCode: String, dto: TransLocationDto) {
+        val payload = mapper.writeValueAsString(dto)
+        val bytePayload = convertPayLoadToBytes(payload)
         when (countryCode) {
-            "IT" -> SimulationToItaly!!.channel?.basicPublish("", "SimulationToItaly", null, convertPayLoadToBytes(mapper.writeValueAsString(dto)))
-            "DE" -> SimulationToItaly!!.channel?.basicPublish("", "SimulationToGermany", null, convertPayLoadToBytes(mapper.writeValueAsString(dto)))
-            "NL" -> SimulationToItaly!!.channel?.basicPublish("", "SimulationToTheNetherlands", null, convertPayLoadToBytes(mapper.writeValueAsString(dto)))
-            "BE" -> SimulationToItaly!!.channel?.basicPublish("", "SimulationToBelgium", null, convertPayLoadToBytes(mapper.writeValueAsString(dto)))
-            "FI" -> SimulationToItaly!!.channel?.basicPublish("", "SimulationToFinland", null, convertPayLoadToBytes(mapper.writeValueAsString(dto)))
+            "IT" -> SimulationToItaly!!.channel?.basicPublish("", "SimulationToItaly", null, (bytePayload))
+            "DE" -> SimulationToItaly!!.channel?.basicPublish("", "SimulationToGermany", null, (bytePayload))
+            "NL" -> SimulationToItaly!!.channel?.basicPublish("", "SimulationToTheNetherlands", null, (bytePayload))
+            "BE" -> SimulationToItaly!!.channel?.basicPublish("", "SimulationToBelgium", null, (bytePayload))
+            "FI" -> SimulationToItaly!!.channel?.basicPublish("", "SimulationToFinland", null, (bytePayload))
             else -> throw Exception()
         }
         logger.debug("($countryCode) Payload has been sent to the queue")
