@@ -30,10 +30,10 @@ class Journey(private val carSimulator: CarSimulator, private val messageProduce
 
                 //Deze dto naar RabbitMQ
                 val dto = TransLocationDto(
-                        car.id,
                         coor.lat!!.toString(),
                         coor.lon!!.toString(),
                         dateTimeNowIso8601UTC,
+                        car.id,
                         car.country)
                 messageProducer.sendTransLocation(sr.countryCode, dto)
                 logger.debug("Lat: " + coor.lat + " - Lon: " + coor.lon)
