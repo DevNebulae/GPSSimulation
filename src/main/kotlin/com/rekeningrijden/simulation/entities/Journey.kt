@@ -5,16 +5,14 @@ import com.rekeningrijden.simulation.simulation.CarSimulator
 import com.rekeningrijden.simulation.simulation.MessageProducer
 import org.apache.log4j.Logger
 import java.text.SimpleDateFormat
+import java.time.Instant
 import java.util.*
 import java.util.concurrent.TimeUnit
 
 class Journey(private val carSimulator: CarSimulator, private val messageProducer: MessageProducer, private val car: Car, private var route: Route) : Thread() {
     private val dateTimeNowIso8601UTC: String
         get() {
-            val tz = TimeZone.getTimeZone("UTC")
-            val df = SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'")
-            df.timeZone = tz
-            return df.format(Date())
+            return Instant.now().toString()
         }
 
     override fun run() {
