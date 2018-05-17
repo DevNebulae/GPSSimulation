@@ -1,6 +1,7 @@
 package com.rekeningrijden.simulation.simulation
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.rabbitmq.client.AMQP
 import com.rekeningrijden.europe.dtos.TransLocationDto
 import org.apache.log4j.Logger
 import java.io.ByteArrayOutputStream
@@ -29,12 +30,14 @@ class MessageProducer {
     fun sendTransLocation(countryCode: String, dto: TransLocationDto) {
         val payload = mapper.writeValueAsString(dto)
         val bytePayload = convertPayLoadToBytes(payload)
+        val props = AMQP.BasicProperties.Builder().contentType("application/x-java-serialized-object").build()
+
         when (countryCode) {
-            "IT" -> SimulationToItaly!!.channel?.basicPublish("", "SimulationToItaly", null, (bytePayload))
-            "DE" -> SimulationToItaly!!.channel?.basicPublish("", "SimulationToGermany", null, (bytePayload))
-            "NL" -> SimulationToItaly!!.channel?.basicPublish("", "SimulationToTheNetherlands", null, (bytePayload))
-            "BE" -> SimulationToItaly!!.channel?.basicPublish("", "SimulationToBelgium", null, (bytePayload))
-            "FI" -> SimulationToItaly!!.channel?.basicPublish("", "SimulationToFinland", null, (bytePayload))
+            "IT" -> SimulationToItaly!!.channel?.basicPublish("", "SimulationToItaly", props, (bytePayload))
+            "DE" -> SimulationToItaly!!.channel?.basicPublish("", "SimulationToGermany", props, (bytePayload))
+            "NL" -> SimulationToItaly!!.channel?.basicPublish("", "SimulationToTheNetherlands", props, (bytePayload))
+            "BE" -> SimulationToItaly!!.channel?.basicPublish("", "SimulationToBelgium", props, (bytePayload))
+            "FI" -> SimulationToItaly!!.channel?.basicPublish("", "SimulationToFinland", props, (bytePayload))
             else -> throw Exception()
         }
         logger.debug("($countryCode) Payload has been sent to the queue")
