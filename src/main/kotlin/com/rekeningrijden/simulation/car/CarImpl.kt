@@ -1,6 +1,10 @@
 package com.rekeningrijden.simulation.car
 
-data class CarImpl(
-    override var id: String,
-    override var country: String
-) : Car
+import java.io.Serializable
+import java.util.UUID
+import kotlin.properties.Delegates
+
+class CarImpl : Car, Serializable {
+    override var id by Delegates.notNull<UUID>()
+    override var country by Delegates.notNull<String>()
+}

@@ -1,12 +1,14 @@
 package com.rekeningrijden.simulation.car
 
+import java.util.UUID
+
 interface Car {
     /**
      * The tracker ID which every motorized vehicle in Europe should have. Each
      * vehicle may only have one tracker and old trackers may not be
      * recommissioned.
      */
-    val id: String
+    val id: UUID
 
     /**
      * The
