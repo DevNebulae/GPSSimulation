@@ -5,45 +5,48 @@ import com.rabbitmq.client.AMQP
 import com.rekeningrijden.europe.dtos.TransLocationDto
 import org.apache.log4j.Logger
 import java.io.ByteArrayOutputStream
-import java.io.IOException
 import java.io.ObjectOutputStream
 
 class MessageProducer {
-
-    private var SimulationToItaly: Gateway? = null
-    private var SimulationToGermany: Gateway? = null
-    private var SimulationToTheNetherlands: Gateway? = null
-    private var SimulationToBelgium: Gateway? = null
-    private var SimulationToFinland: Gateway? = null
-
     private val mapper = ObjectMapper()
+    private val gateways = mutableMapOf<String, Gateway>()
 
     init {
-        startSimulationToBelgium()
-        startSimulationToFinland()
-        startSimulationToGermany()
-        startSimulationToItaly()
-        startSimulationToTheNetherlands()
+        val countries = arrayOf("BE", "DE", "FI", "IT", "NL")
+
+        countries.forEach {
+            val host = System.getProperty(createHostProperty(it.toLowerCase()))
+
+            if (host == null)
+                logger.error("Could not connect with the $it queue. If this is intended, please ignore this message. Otherwise, add the queue via a command line property:\n    -D${createQueueName(it)}=<ip-address>")
+            else
+                gateways[it] = createGateway(it, host)
+        }
+
+        if (gateways.count() == 0) {
+            System.exit(1)
+            logger.fatal("There are no RabbitMQ instances to be connected to. Please supply at least one valid URL.")
+        }
     }
 
-    @Throws(Exception::class)
     fun sendTransLocation(countryCode: String, dto: TransLocationDto) {
         val payload = mapper.writeValueAsString(dto)
         val bytePayload = convertPayLoadToBytes(payload)
-        val props = AMQP.BasicProperties.Builder().contentType("application/x-java-serialized-object").build()
 
-        when (countryCode) {
-            "IT" -> SimulationToItaly!!.channel?.basicPublish("", "SimulationToItaly", props, (bytePayload))
-            "DE" -> SimulationToItaly!!.channel?.basicPublish("", "SimulationToGermany", props, (bytePayload))
-            "NL" -> SimulationToItaly!!.channel?.basicPublish("", "SimulationToTheNetherlands", props, (bytePayload))
-            "BE" -> SimulationToItaly!!.channel?.basicPublish("", "SimulationToBelgium", props, (bytePayload))
-            "FI" -> SimulationToItaly!!.channel?.basicPublish("", "SimulationToFinland", props, (bytePayload))
-            else -> throw Exception()
-        }
-        logger.debug("($countryCode) Payload has been sent to the queue")
+        /**
+         * The message will be marked with delivery mode 2, this means that the
+         * message will be persisted on disk by RabbitMQ so that it will not be
+         * lost.
+         */
+        val props = AMQP.BasicProperties
+            .Builder()
+            .contentType("application/x-java-serialized-object")
+            .deliveryMode(2)
+            .build()
+
+        gateways.get(countryCode)?.channel?.basicPublish("", createQueueName(countryCode), props, bytePayload)
     }
 
-    @Throws(IOException::class)
     private fun convertPayLoadToBytes(payload: String): ByteArray {
         val baos = ByteArrayOutputStream()
         val writter = ObjectOutputStream(baos)
@@ -51,60 +54,23 @@ class MessageProducer {
         return baos.toByteArray()
     }
 
-    private fun startSimulationToItaly() {
-        try {
-            SimulationToItaly = Gateway()
-            SimulationToItaly!!.connect()
-            SimulationToItaly!!.channel?.queueDeclare("SimulationToItaly", false, false, false, null)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+    private fun createGateway(countryCode: String, host: String): Gateway {
+        val gateway = Gateway(host)
 
+        /**
+         * The queue will be marked as durable to ensure that it is not lost
+         * when the queue is temporarily taken down for maintenance. To delete
+         * a queue created by the simulation system, please remove it by hand.
+         */
+        gateway.connect()
+        gateway.channel?.queueDeclare(createQueueName(countryCode), true, false, false, null)
+
+        return gateway
     }
 
-    private fun startSimulationToGermany() {
-        try {
-            SimulationToGermany = Gateway()
-            SimulationToGermany!!.connect()
-            SimulationToGermany!!.channel?.queueDeclare("SimulationToGermany", false, false, false, null)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+    fun createHostProperty(countryCode: String): String = "simulation.rabbitmq.${countryCode.toLowerCase()}"
 
-    }
-
-    private fun startSimulationToTheNetherlands() {
-        try {
-            SimulationToTheNetherlands = Gateway()
-            SimulationToTheNetherlands!!.connect()
-            SimulationToTheNetherlands!!.channel?.queueDeclare("SimulationToTheNetherlands", false, false, false, null)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-
-    }
-
-    private fun startSimulationToBelgium() {
-        try {
-            SimulationToBelgium = Gateway()
-            SimulationToBelgium!!.connect()
-            SimulationToBelgium!!.channel?.queueDeclare("SimulationToBelgium", false, false, false, null)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-
-    }
-
-    private fun startSimulationToFinland() {
-        try {
-            SimulationToFinland = Gateway()
-            SimulationToFinland!!.connect()
-            SimulationToFinland!!.channel?.queueDeclare("SimulationToFinland", false, false, false, null)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-
-    }
+    fun createQueueName(countryCode: String): String = "rekeningrijden.simulation.${countryCode.toLowerCase()}"
 
     companion object {
         private val logger = Logger.getLogger(MessageProducer::class.java)
