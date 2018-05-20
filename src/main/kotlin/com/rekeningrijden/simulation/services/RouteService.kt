@@ -1,7 +1,8 @@
 package com.rekeningrijden.simulation.services
 
-import com.rekeningrijden.simulation.entities.Route
-import com.rekeningrijden.simulation.entities.SubRoute
+import com.rekeningrijden.simulation.route.RouteImpl
+import com.rekeningrijden.simulation.route.SubRoute
+import com.rekeningrijden.simulation.route.SubRouteImpl
 import org.springframework.stereotype.Service
 
 @Service
@@ -11,7 +12,7 @@ class RouteService {
         get() =
             subroutes
                 .entries
-                .map { entrySet -> Route(entrySet.key, entrySet.value) }
+                .map { entrySet -> RouteImpl(entrySet.key, entrySet.value) }
                 .toList()
 
     fun save(routeName: String, subroute: SubRoute) {

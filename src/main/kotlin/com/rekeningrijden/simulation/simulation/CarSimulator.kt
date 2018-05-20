@@ -1,22 +1,24 @@
 package com.rekeningrijden.simulation.simulation
 
+import com.rekeningrijden.simulation.car.Car
 import com.rekeningrijden.simulation.car.CarImpl
 import com.rekeningrijden.simulation.entities.Journey
-import com.rekeningrijden.simulation.entities.Route
+import com.rekeningrijden.simulation.route.Route
+import com.rekeningrijden.simulation.route.RouteImpl
 import java.util.*
 import kotlin.properties.Delegates
 
 class CarSimulator {
-    private var cars by Delegates.notNull<Set<CarImpl>>()
+    private var cars by Delegates.notNull<Set<Car>>()
     private var journeys by Delegates.notNull<List<Journey>>()
     private var routes by Delegates.notNull<List<Route>>()
     private val rndm = Random()
     private val messageProducer = MessageProducer()
 
-    fun initialize(carImpls: Set<CarImpl>, routes: List<Route>) {
-        this.cars = carImpls
+    fun initialize(cars: Set<Car>, routes: List<Route>) {
+        this.cars = cars
         this.routes = routes
-        this.journeys = carImpls.map { Journey(this, messageProducer, it, routes[rndm.nextInt(routes.size)]) }
+        this.journeys = cars.map { Journey(this, messageProducer, it, routes[rndm.nextInt(routes.size)]) }
     }
 
     val newRoute: Route

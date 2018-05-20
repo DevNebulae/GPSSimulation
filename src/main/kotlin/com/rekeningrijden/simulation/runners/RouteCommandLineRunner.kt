@@ -1,7 +1,7 @@
 package com.rekeningrijden.simulation.runners
 
 import com.rekeningrijden.simulation.coordinate.CoordinateImpl
-import com.rekeningrijden.simulation.entities.SubRoute
+import com.rekeningrijden.simulation.route.SubRouteImpl
 import com.rekeningrijden.simulation.services.RouteService
 import io.jenetics.jpx.GPX
 import io.jenetics.jpx.Track
@@ -55,7 +55,7 @@ class RouteCommandLineRunner : CommandLineRunner {
 
                 val routeName = matcher.group(1)
                 val countryCode = matcher.group(3)
-                val subroute = SubRoute(countryCode)
+                val subroute = SubRouteImpl(countryCode)
 
                 /**
                  * Read the GPX resource and map it to a coordinate.
