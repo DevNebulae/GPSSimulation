@@ -1,11 +1,11 @@
 package com.rekeningrijden.simulation.entities
 
-class SubRoute(
-        /**
-         * The two-letter ISO code indicating what country the car is currently
-         * driving in.
-         */
-        val countryCode: String
+data class SubRoute(
+    /**
+     * The two-letter ISO code indicating what country the car is currently
+     * driving in.
+     */
+    val countryCode: String
 ) {
     val coordinates = mutableListOf<Coordinate>()
     var isSubRouteDriven: Boolean = false
