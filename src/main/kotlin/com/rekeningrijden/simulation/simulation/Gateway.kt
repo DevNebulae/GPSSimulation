@@ -10,9 +10,7 @@ class Gateway {
     var connection: Connection? = null
     var channel: Channel? = null
 
-    constructor() {
-        val host = System.getProperty("rabbitmq.host")
-
+    constructor(host: String) {
         factory = ConnectionFactory()
         factory.host = host
     }
@@ -26,7 +24,6 @@ class Gateway {
             logger.fatal(e.toString())
             System.exit(1)
         }
-
     }
 
     companion object {
