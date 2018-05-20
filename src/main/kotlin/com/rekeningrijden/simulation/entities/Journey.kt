@@ -4,12 +4,15 @@ import com.rekeningrijden.europe.dtos.TransLocationDto
 import com.rekeningrijden.simulation.simulation.CarSimulator
 import com.rekeningrijden.simulation.simulation.MessageProducer
 import org.apache.log4j.Logger
-import java.text.SimpleDateFormat
 import java.time.Instant
-import java.util.*
 import java.util.concurrent.TimeUnit
 
-class Journey(private val carSimulator: CarSimulator, private val messageProducer: MessageProducer, private val car: Car, private var route: Route) : Thread() {
+data class Journey(
+    private val carSimulator: CarSimulator,
+    private val messageProducer: MessageProducer,
+    private val car: Car,
+    private var route: Route
+) : Thread() {
     private val dateTimeNowIso8601UTC: String
         get() {
             return Instant.now().toString()
@@ -26,13 +29,13 @@ class Journey(private val carSimulator: CarSimulator, private val messageProduce
 
                 if (coor == null) break
 
-                //Deze dto naar RabbitMQ
                 val dto = TransLocationDto(
-                        coor.lat!!.toString(),
-                        coor.lon!!.toString(),
-                        dateTimeNowIso8601UTC,
-                        car.id,
-                        car.country)
+                    coor.lat!!.toString(),
+                    coor.lon!!.toString(),
+                    dateTimeNowIso8601UTC,
+                    car.id,
+                    car.country
+                )
                 messageProducer.sendTransLocation(sr.countryCode, dto)
                 logger.debug("Lat: " + coor.lat + " - Lon: " + coor.lon)
 
