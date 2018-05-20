@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ff40ddeb-b08f-4343-86dc-1794956c8214" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/Main.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/entities/Journey.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/entities/Journey.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/SimulationApplication.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/SimulationApplication.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/simulation/CarSimulator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/simulation/CarSimulator.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/simulation/Gateway.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/simulation/Gateway.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/simulation/MessageProducer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/simulation/MessageProducer.kt" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -34,26 +29,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="CarSimulator.kt" pinned="false" current-in-tab="false">
+      <file leaf-file-name="CarSimulator.kt" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/simulation/CarSimulator.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="193">
-              <caret line="19" column="6" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
+            <state relative-caret-position="200">
+              <caret line="29" column="24" selection-start-line="29" selection-start-column="24" selection-end-line="29" selection-end-column="24" />
               <folding>
-                <element signature="e#50#737#0" expanded="true" />
+                <element signature="e#50#772#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Journey.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/entities/Journey.kt">
+      <file leaf-file-name="Coordinate.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/entities/Coordinate.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="365">
-              <caret line="64" column="42" selection-start-line="64" selection-start-column="42" selection-end-line="64" selection-end-column="42" />
-              <folding>
-                <element signature="e#48#320#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="48">
+              <caret line="2" column="52" selection-start-line="2" selection-start-column="52" selection-end-line="2" selection-end-column="52" />
             </state>
           </provider>
         </entry>
@@ -61,11 +53,20 @@
       <file leaf-file-name="Gateway.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/simulation/Gateway.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-163">
-              <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
+            <state relative-caret-position="648">
+              <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
               <folding>
                 <element signature="e#50#229#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Car.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/entities/Car.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="96">
+              <caret line="4" column="15" selection-start-line="4" selection-start-column="15" selection-end-line="4" selection-end-column="15" />
             </state>
           </provider>
         </entry>
@@ -82,15 +83,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Route.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/entities/Route.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="172">
-              <caret line="11" column="3" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="3" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
@@ -100,13 +92,37 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SimulationApplication.kt" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SimulationApplication.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/SimulationApplication.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="12" column="39" selection-start-line="12" selection-start-column="39" selection-end-line="12" selection-end-column="39" />
+            <state relative-caret-position="408">
+              <caret line="18" column="5" lean-forward="true" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
               <folding>
-                <element signature="e#39#265#0" expanded="true" />
+                <element signature="e#39#372#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CarService.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/services/CarService.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="168">
+              <caret line="7" column="4" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
+              <folding>
+                <element signature="e#48#143#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CarCommandLineRunner.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/runners/CarCommandLineRunner.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="320">
+              <caret line="23" column="71" selection-start-line="23" selection-start-column="71" selection-end-line="23" selection-end-column="71" />
+              <folding>
+                <element signature="e#47#465#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -646,11 +662,13 @@
         <option value="$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/entities/SubRoute.kt" />
         <option value="$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/Main.kt" />
         <option value="$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/entities/Journey.kt" />
-        <option value="$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/simulation/CarSimulator.kt" />
         <option value="$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/simulation/Gateway.kt" />
-        <option value="$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/SimulationApplication.kt" />
         <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/simulation/MessageProducer.kt" />
+        <option value="$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/services/CarService.kt" />
+        <option value="$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/runners/CarCommandLineRunner.kt" />
+        <option value="$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/SimulationApplication.kt" />
+        <option value="$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/simulation/CarSimulator.kt" />
       </list>
     </option>
   </component>
@@ -718,6 +736,24 @@
               <item name="kotlin" type="462c0819:PsiDirectoryNode" />
               <item name="simulation" type="462c0819:PsiDirectoryNode" />
               <item name="entities" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SimulationSystemERR" type="b2602c69:ProjectViewProjectNode" />
+              <item name="GPSSimulation" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="kotlin" type="462c0819:PsiDirectoryNode" />
+              <item name="simulation" type="462c0819:PsiDirectoryNode" />
+              <item name="runners" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SimulationSystemERR" type="b2602c69:ProjectViewProjectNode" />
+              <item name="GPSSimulation" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="kotlin" type="462c0819:PsiDirectoryNode" />
+              <item name="simulation" type="462c0819:PsiDirectoryNode" />
+              <item name="services" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="SimulationSystemERR" type="b2602c69:ProjectViewProjectNode" />
@@ -896,7 +932,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="50487000" />
+    <option name="totallyTimeSpent" value="52672000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1688" y="7" width="1696" height="1026" extended-state="6" />
@@ -908,7 +944,7 @@
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.31543624" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.31543624" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Spring" weight="0.32900432" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.32900432" />
@@ -922,7 +958,7 @@
       <window_info anchor="right" id="Gradle" order="3" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="Debug" order="3" visible="true" weight="0.42393735" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.42393735" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="sbt-shell-toolwindow" order="7" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -965,8 +1001,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/rekeningrijden/simulation/entities/Coordinate.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/rekeningrijden/simulation/Simulation/Gateway.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/rekeningrijden/simulation/Simulation/Journey.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/rekeningrijden/simulation/Simulation/Start.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/rekeningrijden/simulation/entities/SubRoute.java" />
@@ -1035,13 +1069,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/entities/Coordinate.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/entities/Car.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40">
-          <caret line="2" column="43" lean-forward="true" selection-start-line="2" selection-start-column="43" selection-end-line="2" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/rekeningrijden/simulation/entities/Coordinate.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/rekeningrijden/simulation/entities/Route.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/rekeningrijden/simulation/entities/SubRoute.java" />
@@ -1055,13 +1082,6 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/com/rekeningrijden/simulation/Simulation/Gateway.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/rekeningrijden/simulation/Simulation/MessageProducer.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/rekeningrijden/simulation/Simulation/Start.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/entities/Coordinate.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40">
-          <caret line="2" column="52" selection-start-line="2" selection-start-column="52" selection-end-line="2" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/entities/SubRoute.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="140">
@@ -1121,26 +1141,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/simulation/CarSimulator.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="19" column="6" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
-          <folding>
-            <element signature="e#50#737#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/simulation/Gateway.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-163">
-          <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
-          <folding>
-            <element signature="e#50#229#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/application.yml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -1154,12 +1154,66 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/entities/Car.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="4" column="15" selection-start-line="4" selection-start-column="15" selection-end-line="4" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/entities/Coordinate.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="48">
+          <caret line="2" column="52" selection-start-line="2" selection-start-column="52" selection-end-line="2" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/simulation/Gateway.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="648">
+          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
+          <folding>
+            <element signature="e#50#229#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/services/CarService.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="7" column="4" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
+          <folding>
+            <element signature="e#48#143#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/runners/CarCommandLineRunner.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="23" column="71" selection-start-line="23" selection-start-column="71" selection-end-line="23" selection-end-column="71" />
+          <folding>
+            <element signature="e#47#465#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/SimulationApplication.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="12" column="39" selection-start-line="12" selection-start-column="39" selection-end-line="12" selection-end-column="39" />
+        <state relative-caret-position="408">
+          <caret line="18" column="5" lean-forward="true" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
           <folding>
-            <element signature="e#39#265#0" expanded="true" />
+            <element signature="e#39#372#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/simulation/CarSimulator.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="29" column="24" selection-start-line="29" selection-start-column="24" selection-end-line="29" selection-end-column="24" />
+          <folding>
+            <element signature="e#50#772#0" expanded="true" />
           </folding>
         </state>
       </provider>

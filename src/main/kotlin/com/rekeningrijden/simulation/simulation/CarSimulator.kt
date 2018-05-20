@@ -16,13 +16,19 @@ import java.util.Arrays
 import java.util.Random
 import java.util.regex.Pattern
 import java.util.stream.Collectors
+import kotlin.properties.Delegates
 
 class CarSimulator {
-    private val cars = mutableListOf<Car>()
+    private var cars by Delegates.notNull<Set<Car>>()
     private var routes = mutableListOf<Route>()
     private val journeys = mutableListOf<Journey>()
     private val rndm = Random()
     private val messageProducer = MessageProducer()
+
+    fun initialize(cars: Set<Car>) {
+        this.cars = cars
+        createJourneys()
+    }
 
     val newRoute: Route
         get() {
@@ -34,16 +40,8 @@ class CarSimulator {
         }
 
     init {
-        loadCarsFromJson()
         loadRoutesFromGPX()
-        createJourneys()
-    }
 
-    private fun loadCarsFromJson() {
-        val readValue = ObjectMapper().readValue<List<Car>>(resolver.getResource("classpath:trackers.json").inputStream)
-        cars.addAll(readValue)
-
-        logger.debug("${cars.size} cars have been initialized.")
     }
 
     private fun loadRoutesFromGPX() {
