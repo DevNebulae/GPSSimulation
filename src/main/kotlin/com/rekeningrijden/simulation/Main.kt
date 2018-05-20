@@ -8,7 +8,7 @@ object Main {
     fun main(args: Array<String>) {
         BasicConfigurator.configure()
         println("Starting simulation...")
-        
+
         val simulator = CarSimulator()
         simulator.startSimulation()
     }
