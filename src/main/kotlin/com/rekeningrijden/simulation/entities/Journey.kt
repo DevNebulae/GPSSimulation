@@ -3,7 +3,7 @@ package com.rekeningrijden.simulation.entities
 import com.rekeningrijden.europe.dtos.TransLocationDto
 import com.rekeningrijden.simulation.simulation.CarSimulator
 import com.rekeningrijden.simulation.simulation.MessageProducer
-import org.apache.log4j.Logger
+import org.slf4j.LoggerFactory
 import java.time.Instant
 import java.util.concurrent.TimeUnit
 
@@ -62,6 +62,6 @@ data class Journey(
     }
 
     companion object {
-        private val logger = Logger.getLogger(Journey::class.java)
+        private val logger = LoggerFactory.getLogger(Journey::class.java)
     }
 }

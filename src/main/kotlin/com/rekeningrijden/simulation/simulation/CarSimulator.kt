@@ -10,7 +10,7 @@ import com.rekeningrijden.simulation.entities.SubRoute
 import io.jenetics.jpx.GPX
 import io.jenetics.jpx.Track
 import io.jenetics.jpx.TrackSegment
-import org.apache.log4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver
 import java.util.Arrays
 import java.util.Random
@@ -128,7 +128,7 @@ class CarSimulator {
 
     companion object {
         private val cl = this::class.java.classLoader
-        private val logger = Logger.getLogger(CarSimulator::class.java)
+        private val logger = LoggerFactory.getLogger(CarSimulator::class.java)
         private val resolver = PathMatchingResourcePatternResolver(cl)
         private const val routesFolder = "routes/"
     }

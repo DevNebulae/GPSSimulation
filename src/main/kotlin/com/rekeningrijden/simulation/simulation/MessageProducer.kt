@@ -3,7 +3,7 @@ package com.rekeningrijden.simulation.simulation
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.rabbitmq.client.AMQP
 import com.rekeningrijden.europe.dtos.TransLocationDto
-import org.apache.log4j.Logger
+import org.slf4j.LoggerFactory
 import java.io.ByteArrayOutputStream
 import java.io.ObjectOutputStream
 
@@ -15,7 +15,7 @@ class MessageProducer {
         val countries = arrayOf("BE", "DE", "FI", "IT", "NL")
 
         countries.forEach {
-            val host = System.getProperty(createHostProperty(it.toLowerCase()))
+            val host = System.getProperty(createHostProperty(it))
 
             if (host == null)
                 logger.error("Could not connect with the $it queue. If this is intended, please ignore this message. Otherwise, add the queue via a command line property:\n    -D${createQueueName(it)}=<ip-address>")
@@ -25,7 +25,7 @@ class MessageProducer {
 
         if (gateways.count() == 0) {
             System.exit(1)
-            logger.fatal("There are no RabbitMQ instances to be connected to. Please supply at least one valid URL.")
+            logger.error("There are no RabbitMQ instances to be connected to. Please supply at least one valid URL.")
         }
     }
 
@@ -73,6 +73,6 @@ class MessageProducer {
     fun createQueueName(countryCode: String): String = "rekeningrijden.simulation.${countryCode.toLowerCase()}"
 
     companion object {
-        private val logger = Logger.getLogger(MessageProducer::class.java)
+        private val logger = LoggerFactory.getLogger(MessageProducer::class.java)
     }
 }
