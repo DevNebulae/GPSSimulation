@@ -1,10 +1,8 @@
 package com.rekeningrijden.simulation.runners
 
-import com.rekeningrijden.simulation.entities.Coordinate
-import com.rekeningrijden.simulation.entities.Route
+import com.rekeningrijden.simulation.coordinate.CoordinateImpl
 import com.rekeningrijden.simulation.entities.SubRoute
 import com.rekeningrijden.simulation.services.RouteService
-import com.rekeningrijden.simulation.simulation.CarSimulator
 import io.jenetics.jpx.GPX
 import io.jenetics.jpx.Track
 import io.jenetics.jpx.TrackSegment
@@ -12,7 +10,6 @@ import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.CommandLineRunner
 import org.springframework.core.annotation.Order
-import org.springframework.core.io.ClassPathResource
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver
 import org.springframework.stereotype.Component
 import java.util.*
@@ -68,7 +65,7 @@ class RouteCommandLineRunner : CommandLineRunner {
                     .tracks()
                     .flatMap(Track::segments)
                     .flatMap(TrackSegment::points)
-                    .map { Coordinate(it.latitude.toDouble(), it.longitude.toDouble()) }
+                    .map { CoordinateImpl(it.latitude.toDouble(), it.longitude.toDouble()) }
                     .collect(Collectors.toList())
 
                 subroute.coordinates.addAll(coordinates)

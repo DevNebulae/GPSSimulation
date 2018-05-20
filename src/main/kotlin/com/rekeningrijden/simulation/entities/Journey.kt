@@ -31,14 +31,14 @@ data class Journey(
                 if (coor == null) break
 
                 val dto = TransLocationDto(
-                    coor.lat!!.toString(),
-                    coor.lon!!.toString(),
+                    coor.latitude.toString(),
+                    coor.longitude.toString(),
                     dateTimeNowIso8601UTC,
-                    carImpl.id,
+                    carImpl.id.toString(),
                     carImpl.country
                 )
                 messageProducer.sendTransLocation(sr.countryCode, dto)
-                logger.debug("Lat: " + coor.lat + " - Lon: " + coor.lon)
+                logger.debug("Lat: " + coor.latitude + " - Lon: " + coor.longitude)
 
                 Thread.sleep(1000)
             }

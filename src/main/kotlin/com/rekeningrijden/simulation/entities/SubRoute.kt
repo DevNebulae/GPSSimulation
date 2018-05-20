@@ -1,5 +1,7 @@
 package com.rekeningrijden.simulation.entities
 
+import com.rekeningrijden.simulation.coordinate.CoordinateImpl
+
 data class SubRoute(
     /**
      * The two-letter ISO code indicating what country the car is currently
@@ -7,10 +9,10 @@ data class SubRoute(
      */
     val countryCode: String
 ) {
-    val coordinates = mutableListOf<Coordinate>()
+    val coordinates = mutableListOf<CoordinateImpl>()
     var isSubRouteDriven: Boolean = false
 
-    fun getNextCoordinateAtIndex(index: Int): Coordinate? {
+    fun getNextCoordinateAtIndex(index: Int): CoordinateImpl? {
         if (index >= coordinates.size) {
             this.isSubRouteDriven = true
             return null
