@@ -2,15 +2,20 @@ package com.rekeningrijden.simulation.simulation
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
-import com.rekeningrijden.simulation.entities.*
+import com.rekeningrijden.simulation.entities.Car
+import com.rekeningrijden.simulation.entities.Coordinate
+import com.rekeningrijden.simulation.entities.Journey
+import com.rekeningrijden.simulation.entities.Route
+import com.rekeningrijden.simulation.entities.SubRoute
 import io.jenetics.jpx.GPX
 import io.jenetics.jpx.Track
 import io.jenetics.jpx.TrackSegment
 import org.apache.log4j.Logger
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver
-import java.util.*
+import java.util.Arrays
+import java.util.Random
 import java.util.regex.Pattern
-import kotlin.streams.toList
+import java.util.stream.Collectors
 
 class CarSimulator {
     private val cars = mutableListOf<Car>()
@@ -49,62 +54,65 @@ class CarSimulator {
         val subrouteResources = resolver.getResources("classpath*:/routes/**/*.gpx")
 
         Arrays.stream(subrouteResources)
+            /**
+             * Walk through all files found (recursively) in the routes resource
+             * folder. Relativize the file name so that the route name can be
+             * determined together with the the part of the route.
+             */
+            .forEach { subrouteResource ->
                 /**
-                 * Walk through all files found (recursively) in the routes resource folder. Relativize the file name so
-                 * that the route name can be determined together with the the part of the route.
+                 * Retrieve the country code by regex from the file path. An
+                 * example of such file path is as follows:
+                 * `parma-udine/A-IT.gpx`.
+                 *
+                 * Capture groups:
+                 * 0: complete string
+                 * 1: route name
+                 * 2: subroute counter (alphabetical)
+                 * 3: country code via the ISO specification, two
+                 * capitalized alphabetical characters.
                  */
-                .forEach { subrouteResource ->
-                    /**
-                     * Retrieve the country code by regex from the file path. An example of such file path is as
-                     * follows: parma-udine/A-IT.gpx.
-                     *
-                     * Capture groups:
-                     * 0: complete string
-                     * 1: route name
-                     * 2: subroute counter (alphabetical)
-                     * 3: country code via the ISO specification, two
-                     * capitalized alphabetical characters.
-                     */
-                    val pattern = Pattern.compile("([a-zA-Z-]+)/([A-Z]+)-([A-Z]{2})")
-                    val matcher = pattern.matcher(routesRootPath.relativize(subrouteResource.uri).toString())
+                val pattern = Pattern.compile("([a-zA-Z-]+)/([A-Z]+)-([A-Z]{2})")
+                val matcher = pattern.matcher(routesRootPath.relativize(subrouteResource.uri).toString())
 
-                    if (!matcher.find()) {
-                        logger.warn("The convention determined by the regex could not be found for the file with the location $subrouteResource")
-                    }
-
-                    val routeName = matcher.group(1)
-                    val countryCode = matcher.group(3)
-                    val subroute = SubRoute(countryCode)
-
-                    /**
-                     * Read the GPX resource and map it to a coordinate.
-                     */
-                    val tracks = GPX.read(subrouteResource.inputStream)
-                    val coordinates = tracks
-                            .tracks()
-                            .flatMap(Track::segments)
-                            .flatMap(TrackSegment::points)
-                            .map { Coordinate(it.latitude.toDouble(), it.longitude.toDouble()) }
-                            .toList()
-
-                    subroute.coordinates.addAll(coordinates);
-
-                    /**
-                     * If the route does not exist yet in the map, create it with a blank list of subroutes.
-                     */
-                    if (!intermediateRoutes.containsKey(routeName))
-                        intermediateRoutes.put(routeName, mutableListOf());
-
-                    /**
-                     * Add the subroutes to the map.
-                     */
-                    intermediateRoutes.getValue(routeName).add(subroute);
+                if (!matcher.find()) {
+                    logger.warn("The convention determined by the regex could not be found for the file with the location $subrouteResource")
                 }
 
+                val routeName = matcher.group(1)
+                val countryCode = matcher.group(3)
+                val subroute = SubRoute(countryCode)
+
+                /**
+                 * Read the GPX resource and map it to a coordinate.
+                 */
+                val tracks = GPX.read(subrouteResource.inputStream)
+                val coordinates = tracks
+                    .tracks()
+                    .flatMap(Track::segments)
+                    .flatMap(TrackSegment::points)
+                    .map { Coordinate(it.latitude.toDouble(), it.longitude.toDouble()) }
+                    .collect(Collectors.toList())
+
+                subroute.coordinates.addAll(coordinates)
+
+                /**
+                 * If the route does not exist yet in the map, create it with a
+                 * blank list of subroutes.
+                 */
+                if (!intermediateRoutes.containsKey(routeName))
+                    intermediateRoutes.put(routeName, mutableListOf())
+
+                /**
+                 * Add the subroutes to the map.
+                 */
+                intermediateRoutes.getValue(routeName).add(subroute)
+            }
+
         this.routes = intermediateRoutes
-                .entries
-                .map { entrySet -> Route(entrySet.key, entrySet.value) }
-                .toMutableList()
+            .entries
+            .map { entrySet -> Route(entrySet.key, entrySet.value) }
+            .toMutableList()
     }
 
     private fun createJourneys() {
