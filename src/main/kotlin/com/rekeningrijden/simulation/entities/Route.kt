@@ -1,8 +1,8 @@
 package com.rekeningrijden.simulation.entities
 
 /**
- * Routes have subroutes in different countries. All subroutes combined form a single route and the format in which the
- * subroutes are saved is GPX.
+ * Routes have subroutes in different countries. All subroutes combined form a
+ * single route and the format in which the subroutes are saved is GPX.
  *
  * The format the GPX files are included is as follows:
  * * Route 1: contains a route in Italy and one in Germany.
@@ -10,16 +10,14 @@ package com.rekeningrijden.simulation.entities
  * * Route 3: contains a route in Italy, Germany, the Netherlands and Sweden.
  * * Et cetera...
  */
-class Route(
-        private val routeNumber: String,
+data class Route(
+    private val routeNumber: String,
 
-        val subRoutes: List<SubRoute>
+    val subRoutes: List<SubRoute>
 ) {
     var isRouteDriven: Boolean = false
 
     fun setAllSubRoutesToFalse() {
-        for (sr in subRoutes) {
-            sr.isSubRouteDriven = false
-        }
+        subRoutes.forEach { it.isSubRouteDriven = false }
     }
 }
