@@ -1,13 +1,13 @@
 package com.rekeningrijden.simulation.services
 
-import com.rekeningrijden.simulation.entities.Car
+import com.rekeningrijden.simulation.car.CarImpl
 import org.springframework.stereotype.Service
 
 @Service
 class CarService {
-    val cars = mutableSetOf<Car>()
+    val cars = mutableSetOf<CarImpl>()
 
-    fun save(cars: Set<Car>) {
-        this.cars.addAll(cars)
+    fun save(carImpls: Set<CarImpl>) {
+        this.cars.addAll(carImpls)
     }
 }

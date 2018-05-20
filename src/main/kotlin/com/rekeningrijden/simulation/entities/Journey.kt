@@ -1,6 +1,7 @@
 package com.rekeningrijden.simulation.entities
 
 import com.rekeningrijden.europe.dtos.TransLocationDto
+import com.rekeningrijden.simulation.car.CarImpl
 import com.rekeningrijden.simulation.simulation.CarSimulator
 import com.rekeningrijden.simulation.simulation.MessageProducer
 import org.slf4j.LoggerFactory
@@ -10,7 +11,7 @@ import java.util.concurrent.TimeUnit
 data class Journey(
     private val carSimulator: CarSimulator,
     private val messageProducer: MessageProducer,
-    private val car: Car,
+    private val carImpl: CarImpl,
     private var route: Route
 ) : Thread() {
     private val dateTimeNowIso8601UTC: String
@@ -33,8 +34,8 @@ data class Journey(
                     coor.lat!!.toString(),
                     coor.lon!!.toString(),
                     dateTimeNowIso8601UTC,
-                    car.id,
-                    car.country
+                    carImpl.id,
+                    carImpl.country
                 )
                 messageProducer.sendTransLocation(sr.countryCode, dto)
                 logger.debug("Lat: " + coor.lat + " - Lon: " + coor.lon)

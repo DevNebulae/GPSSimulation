@@ -1,24 +1,22 @@
 package com.rekeningrijden.simulation.simulation
 
-import com.rekeningrijden.simulation.entities.Car
+import com.rekeningrijden.simulation.car.CarImpl
 import com.rekeningrijden.simulation.entities.Journey
 import com.rekeningrijden.simulation.entities.Route
-import org.slf4j.LoggerFactory
-import org.springframework.core.io.support.PathMatchingResourcePatternResolver
 import java.util.*
 import kotlin.properties.Delegates
 
 class CarSimulator {
-    private var cars by Delegates.notNull<Set<Car>>()
+    private var cars by Delegates.notNull<Set<CarImpl>>()
     private var journeys by Delegates.notNull<List<Journey>>()
     private var routes by Delegates.notNull<List<Route>>()
     private val rndm = Random()
     private val messageProducer = MessageProducer()
 
-    fun initialize(cars: Set<Car>, routes: List<Route>) {
-        this.cars = cars
+    fun initialize(carImpls: Set<CarImpl>, routes: List<Route>) {
+        this.cars = carImpls
         this.routes = routes
-        this.journeys = cars.map { Journey(this, messageProducer, it, routes[rndm.nextInt(routes.size)]) }
+        this.journeys = carImpls.map { Journey(this, messageProducer, it, routes[rndm.nextInt(routes.size)]) }
     }
 
     val newRoute: Route
