@@ -13,6 +13,7 @@ import org.springframework.core.annotation.Order
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver
 import org.springframework.stereotype.Component
 import java.util.Arrays
+import java.util.LinkedList
 import java.util.regex.Pattern
 import java.util.stream.Collectors
 
@@ -55,22 +56,20 @@ class RouteCommandLineRunner : CommandLineRunner {
 
                 val routeName = matcher.group(1)
                 val countryCode = matcher.group(3)
-                val subroute = SubRouteImpl(countryCode)
-
                 /**
-                 * Read the GPX resource and map it to a coordinate.
+                 * Read the GPX resource and map it to a coordinate which can be
+                 * used by the simulation system.
                  */
-                val tracks = GPX.read(subrouteResource.inputStream)
-                val coordinates = tracks
+                val tracks = GPX
+                    .read(subrouteResource.inputStream)
                     .tracks()
                     .flatMap(Track::segments)
                     .flatMap(TrackSegment::points)
                     .map { CoordinateImpl(it.latitude.toDouble(), it.longitude.toDouble()) }
                     .collect(Collectors.toList())
+                val subRoute = SubRouteImpl(countryCode, LinkedList(tracks))
 
-                subroute.coordinates.addAll(coordinates)
-
-                routeService.save(routeName, subroute)
+                routeService.save(routeName, subRoute)
             }
 
         logger.info("${routeService.subroutes.values.map { it.size }.sum()} subroutes have been initialized")
