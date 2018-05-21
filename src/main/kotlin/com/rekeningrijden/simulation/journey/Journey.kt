@@ -4,7 +4,7 @@ import com.rekeningrijden.europe.dtos.TransLocationDto
 import com.rekeningrijden.simulation.car.Car
 import com.rekeningrijden.simulation.route.Route
 import com.rekeningrijden.simulation.route.SubRoute
-import com.rekeningrijden.simulation.simulation.CarSimulator
+import com.rekeningrijden.simulation.services.SimulationService
 import com.rekeningrijden.simulation.simulation.MessageProducer
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit
 @Scope("prototype")
 class Journey : Thread() {
     @Autowired
-    private lateinit var carSimulator: CarSimulator
+    private lateinit var simulationService: SimulationService
 
     @Autowired
     private lateinit var messageProducer: MessageProducer
@@ -57,7 +57,7 @@ class Journey : Thread() {
             if (route.isRouteDriven) {
                 logger.debug("Thread sleeping for 15 minutes")
                 TimeUnit.MINUTES.sleep(15)
-                this.route = carSimulator.newRoute
+                this.route = simulationService.newRoute
             }
         }
     }

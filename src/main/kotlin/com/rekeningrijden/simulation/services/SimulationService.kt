@@ -1,20 +1,17 @@
-package com.rekeningrijden.simulation.simulation
+package com.rekeningrijden.simulation.services
 
 import com.rekeningrijden.simulation.car.Car
 import com.rekeningrijden.simulation.journey.Journey
 import com.rekeningrijden.simulation.route.Route
-import com.rekeningrijden.simulation.services.CarService
-import com.rekeningrijden.simulation.services.RouteService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.ApplicationContext
 import org.springframework.core.task.TaskExecutor
 import org.springframework.stereotype.Service
-import sun.plugin2.message.Message
 import java.util.Random
 import kotlin.properties.Delegates
 
 @Service
-class CarSimulator {
+class SimulationService {
     @Autowired
     private lateinit var applicationContext: ApplicationContext
 
