@@ -1,15 +1,16 @@
-package com.rekeningrijden.simulation.simulation
+package com.rekeningrijden.simulation.services
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.rabbitmq.client.AMQP
 import com.rekeningrijden.europe.dtos.TransLocationDto
+import com.rekeningrijden.simulation.simulation.Gateway
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import java.io.ByteArrayOutputStream
 import java.io.ObjectOutputStream
 
 @Service
-class MessageProducer {
+class MessageService {
     private val mapper = ObjectMapper()
     private val gateways = mutableMapOf<String, Gateway>()
 
@@ -26,8 +27,8 @@ class MessageProducer {
         }
 
         if (gateways.count() == 0) {
-            System.exit(1)
             logger.error("There are no RabbitMQ instances to be connected to. Please supply at least one valid URL.")
+            System.exit(1)
         }
     }
 
@@ -75,6 +76,6 @@ class MessageProducer {
     fun createQueueName(countryCode: String): String = "rekeningrijden.simulation.${countryCode.toLowerCase()}"
 
     companion object {
-        private val logger = LoggerFactory.getLogger(MessageProducer::class.java)
+        private val logger = LoggerFactory.getLogger(MessageService::class.java)
     }
 }
