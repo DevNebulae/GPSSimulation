@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.CommandLineRunner
 import org.springframework.core.annotation.Order
 import org.springframework.core.io.ClassPathResource
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver
 import org.springframework.stereotype.Component
 
 @Component
@@ -18,7 +19,7 @@ class CarCommandLineRunner : CommandLineRunner {
     private lateinit var carService: CarService
 
     override fun run(vararg args: String?) {
-        carService.save(ObjectMapper().readValue<Set<CarImpl>>(ClassPathResource("trackers.json").file))
+        carService.save(ObjectMapper().readValue<Set<CarImpl>>(ClassPathResource("trackers.json").inputStream))
 
         logger.info("${carService.cars.size} cars have been initialized")
     }
