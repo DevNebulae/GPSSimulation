@@ -34,7 +34,7 @@ class MessageService {
 
     fun sendTransLocation(countryCode: String, dto: TransLocationDto) {
         val payload = mapper.writeValueAsString(dto)
-        val bytePayload = convertPayLoadToBytes(payload)
+        val bytePayload = payload.toByteArray()
 
         /**
          * The message will be marked with delivery mode 2, this means that the
@@ -43,18 +43,11 @@ class MessageService {
          */
         val props = AMQP.BasicProperties
             .Builder()
-            .contentType("application/x-java-serialized-object")
+            .contentType("application/json")
             .deliveryMode(2)
             .build()
 
         gateways.get(countryCode)?.channel?.basicPublish("", createQueueName(countryCode), props, bytePayload)
-    }
-
-    private fun convertPayLoadToBytes(payload: String): ByteArray {
-        val baos = ByteArrayOutputStream()
-        val writter = ObjectOutputStream(baos)
-        writter.writeObject(payload)
-        return baos.toByteArray()
     }
 
     private fun createGateway(countryCode: String, host: String): Gateway {
