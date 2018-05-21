@@ -5,7 +5,7 @@ import com.rekeningrijden.simulation.car.Car
 import com.rekeningrijden.simulation.route.Route
 import com.rekeningrijden.simulation.route.SubRoute
 import com.rekeningrijden.simulation.services.SimulationService
-import com.rekeningrijden.simulation.simulation.MessageProducer
+import com.rekeningrijden.simulation.services.MessageService
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Scope
@@ -23,7 +23,7 @@ class Journey : Thread() {
     private lateinit var simulationService: SimulationService
 
     @Autowired
-    private lateinit var messageProducer: MessageProducer
+    private lateinit var messageService: MessageService
 
     private lateinit var car: Car
     private lateinit var route: Route
@@ -48,7 +48,7 @@ class Journey : Thread() {
                     car.id.toString(),
                     car.country
                 )
-                messageProducer.sendTransLocation(sr.countryCode, dto)
+                messageService.sendTransLocation(sr.countryCode, dto)
                 logger.debug("Lat: " + coor.latitude + " - Lon: " + coor.longitude)
 
                 Thread.sleep(1000)
