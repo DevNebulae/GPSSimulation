@@ -1,7 +1,9 @@
 package com.rekeningrijden.simulation.journey
 
+import com.google.common.collect.Iterators
 import com.rekeningrijden.europe.dtos.TransLocationDto
 import com.rekeningrijden.simulation.car.Car
+import com.rekeningrijden.simulation.math.distance
 import com.rekeningrijden.simulation.route.Route
 import com.rekeningrijden.simulation.route.SubRoute
 import com.rekeningrijden.simulation.services.SimulationService
@@ -36,7 +38,7 @@ class Journey : Thread() {
     override fun run() {
         while (!route.isRouteDriven) {
             val sr = findSubRouteThatIsNotDrivenYet()
-            val iterator = sr.coordinates.iterator()
+            val iterator = Iterators.peekingIterator(sr.coordinates.iterator())
 
             while (iterator.hasNext()) {
                 val coor = iterator.next()
@@ -49,9 +51,23 @@ class Journey : Thread() {
                     car.country
                 )
                 messageService.sendTransLocation(sr.countryCode, dto)
-                logger.debug("Lat: " + coor.latitude + " - Lon: " + coor.longitude)
+                logger.debug("Lat: ${coor.latitude} - Lon: ${coor.longitude}")
 
-                Thread.sleep(1000)
+                /**
+                 * Determine the delay until the next coordinate is generated.
+                 */
+                if (iterator.hasNext())
+                    iterator.peek().let {
+                        val distance = distance(coor.latitude, coor.longitude, it.latitude, it.longitude)
+                        /**
+                         * Calculate the sleep time in _milliseconds_. Both the
+                         * distance and speed of the car are in _hours_ and
+                         * _kilometers_, so the result of the division is in
+                         * _hours_.
+                         */
+                        val delay = distance / car.speed * 3600000
+                        Thread.sleep(delay.toLong())
+                    }
             }
 
             if (route.isRouteDriven) {
