@@ -1,4 +1,4 @@
-package com.rekeningrijden.simulation.entities
+package com.rekeningrijden.simulation.journey
 
 import com.rekeningrijden.europe.dtos.TransLocationDto
 import com.rekeningrijden.simulation.car.Car

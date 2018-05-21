@@ -1,7 +1,7 @@
 package com.rekeningrijden.simulation.simulation
 
 import com.rekeningrijden.simulation.car.Car
-import com.rekeningrijden.simulation.entities.Journey
+import com.rekeningrijden.simulation.journey.Journey
 import com.rekeningrijden.simulation.route.Route
 import java.util.Random
 import kotlin.properties.Delegates
