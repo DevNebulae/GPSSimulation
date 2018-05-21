@@ -4,9 +4,11 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.rabbitmq.client.AMQP
 import com.rekeningrijden.europe.dtos.TransLocationDto
 import org.slf4j.LoggerFactory
+import org.springframework.stereotype.Service
 import java.io.ByteArrayOutputStream
 import java.io.ObjectOutputStream
 
+@Service
 class MessageProducer {
     private val mapper = ObjectMapper()
     private val gateways = mutableMapOf<String, Gateway>()
