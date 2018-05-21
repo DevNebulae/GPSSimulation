@@ -7,19 +7,31 @@ import com.rekeningrijden.simulation.route.SubRoute
 import com.rekeningrijden.simulation.simulation.CarSimulator
 import com.rekeningrijden.simulation.simulation.MessageProducer
 import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.context.annotation.Scope
+import org.springframework.stereotype.Component
 import java.time.Instant
 import java.util.concurrent.TimeUnit
 
-data class Journey(
-    private val carSimulator: CarSimulator,
-    private val messageProducer: MessageProducer,
-    private val car: Car,
-    private var route: Route
-) : Thread() {
-    private val dateTimeNowIso8601UTC: String
-        get() {
-            return Instant.now().toString()
-        }
+/**
+ * TODO("Separate Journey and threading implementation into separate classes.")
+ */
+@Component
+@Scope("prototype")
+class Journey : Thread() {
+    @Autowired
+    private lateinit var carSimulator: CarSimulator
+
+    @Autowired
+    private lateinit var messageProducer: MessageProducer
+
+    private lateinit var car: Car
+    private lateinit var route: Route
+
+    fun initialize(car: Car, route: Route) {
+        this.car = car
+        this.route = route
+    }
 
     override fun run() {
         while (!route.isRouteDriven) {
@@ -32,7 +44,7 @@ data class Journey(
                 val dto = TransLocationDto(
                     coor.latitude.toString(),
                     coor.longitude.toString(),
-                    dateTimeNowIso8601UTC,
+                    Instant.now().toString(),
                     car.id.toString(),
                     car.country
                 )
