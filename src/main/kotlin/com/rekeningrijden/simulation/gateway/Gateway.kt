@@ -5,6 +5,9 @@ import com.rabbitmq.client.Connection
 import com.rabbitmq.client.ConnectionFactory
 import org.slf4j.LoggerFactory
 
+/**
+ * TODO("Convert to Spring configuration")
+ */
 class Gateway {
     private val factory: ConnectionFactory
     var connection: Connection? = null
