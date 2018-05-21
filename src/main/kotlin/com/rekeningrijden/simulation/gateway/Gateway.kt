@@ -1,4 +1,4 @@
-package com.rekeningrijden.simulation.simulation
+package com.rekeningrijden.simulation.gateway
 
 import com.rabbitmq.client.Channel
 import com.rabbitmq.client.Connection

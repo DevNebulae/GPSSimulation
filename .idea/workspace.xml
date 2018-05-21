@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ff40ddeb-b08f-4343-86dc-1794956c8214" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/journey/Journey.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/journey/Journey.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/services/CarService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/services/CarService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/services/SimulationService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/services/SimulationService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/rekeningrijden/simulation/simulation/MessageProducer.kt" beforeDir="false" />
-    </list>
+    <list default="true" id="ff40ddeb-b08f-4343-86dc-1794956c8214" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
     <ignored path="$PROJECT_DIR$/out/" />

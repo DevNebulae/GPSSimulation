@@ -3,7 +3,7 @@ package com.rekeningrijden.simulation.services
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.rabbitmq.client.AMQP
 import com.rekeningrijden.europe.dtos.TransLocationDto
-import com.rekeningrijden.simulation.simulation.Gateway
+import com.rekeningrijden.simulation.gateway.Gateway
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import java.io.ByteArrayOutputStream
