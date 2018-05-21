@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service
 class CarService {
     val cars = mutableSetOf<Car>()
 
-    fun save(carImpls: Set<Car>) {
-        this.cars.addAll(carImpls)
+    fun save(cars: Set<Car>) {
+        this.cars.addAll(cars)
     }
 }
