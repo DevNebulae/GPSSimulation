@@ -16,4 +16,9 @@ interface Car {
      * country code which indicates which country the car originates from.
      */
     val country: String
+
+    /**
+     * The speed at which a car travels in _kilometers per hour_.
+     */
+    val speed: Double
 }
