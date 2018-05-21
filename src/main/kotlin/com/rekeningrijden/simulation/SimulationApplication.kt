@@ -11,12 +11,9 @@ import org.springframework.context.annotation.Bean
 @SpringBootApplication
 class SimulationApplication {
     @Bean
-    fun start(carService: CarService, routeService: RouteService) = CommandLineRunner {
-        println("Starting simulation...")
-
-        val simulator = CarSimulator()
-        simulator.initialize(carService.cars, routeService.routes)
-        simulator.startSimulation()
+    fun start(carService: CarService, carSimulator: CarSimulator, routeService: RouteService) = CommandLineRunner {
+        carSimulator.initialize(carService.cars, routeService.routes)
+        carSimulator.startSimulation()
     }
 }
 
