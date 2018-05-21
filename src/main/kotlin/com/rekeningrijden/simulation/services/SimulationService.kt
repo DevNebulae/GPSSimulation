@@ -28,7 +28,6 @@ class SimulationService {
     private var routes by Delegates.notNull<List<Route>>()
     private val rndm = Random()
 
-
     fun initialize() {
         this.cars = carService.cars
         this.routes = routeService.routes
