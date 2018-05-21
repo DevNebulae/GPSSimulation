@@ -21,7 +21,7 @@ class MessageService {
             val host = System.getProperty(createHostProperty(it))
 
             if (host == null)
-                logger.error("Could not connect with the $it queue. If this is intended, please ignore this message. Otherwise, add the queue via a command line property:\n    -D${createQueueName(it)}=<ip-address>")
+                logger.error("Could not connect with the $it queue. If this is intended, please ignore this message. Otherwise, add the queue via a command line property:\n    -D${createHostProperty(it)}=<ip-address>")
             else
                 gateways[it] = createGateway(it, host)
         }
