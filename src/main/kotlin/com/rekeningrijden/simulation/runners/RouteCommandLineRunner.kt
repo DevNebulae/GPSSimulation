@@ -12,7 +12,7 @@ import org.springframework.boot.CommandLineRunner
 import org.springframework.core.annotation.Order
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver
 import org.springframework.stereotype.Component
-import java.util.*
+import java.util.Arrays
 import java.util.regex.Pattern
 import java.util.stream.Collectors
 

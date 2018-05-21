@@ -2,7 +2,6 @@ package com.rekeningrijden.simulation.services
 
 import com.rekeningrijden.simulation.route.RouteImpl
 import com.rekeningrijden.simulation.route.SubRoute
-import com.rekeningrijden.simulation.route.SubRouteImpl
 import org.springframework.stereotype.Service
 
 @Service

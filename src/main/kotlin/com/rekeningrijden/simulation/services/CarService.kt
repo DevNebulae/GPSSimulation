@@ -1,7 +1,6 @@
 package com.rekeningrijden.simulation.services
 
 import com.rekeningrijden.simulation.car.Car
-import com.rekeningrijden.simulation.car.CarImpl
 import org.springframework.stereotype.Service
 
 @Service

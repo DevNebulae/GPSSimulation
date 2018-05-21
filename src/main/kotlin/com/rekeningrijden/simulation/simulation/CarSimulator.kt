@@ -1,11 +1,9 @@
 package com.rekeningrijden.simulation.simulation
 
 import com.rekeningrijden.simulation.car.Car
-import com.rekeningrijden.simulation.car.CarImpl
 import com.rekeningrijden.simulation.entities.Journey
 import com.rekeningrijden.simulation.route.Route
-import com.rekeningrijden.simulation.route.RouteImpl
-import java.util.*
+import java.util.Random
 import kotlin.properties.Delegates
 
 class CarSimulator {
