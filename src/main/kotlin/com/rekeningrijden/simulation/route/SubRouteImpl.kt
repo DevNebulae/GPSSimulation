@@ -1,6 +1,7 @@
 package com.rekeningrijden.simulation.route
 
-import com.rekeningrijden.simulation.coordinate.CoordinateImpl
+import com.rekeningrijden.simulation.coordinate.Coordinate
+import java.util.LinkedList
 
 data class SubRouteImpl(
     /**
@@ -9,6 +10,6 @@ data class SubRouteImpl(
      */
     override val countryCode: String
 ) : SubRoute {
-    override val coordinates = mutableListOf<CoordinateImpl>()
+    override val coordinates = LinkedList<Coordinate>()
     override var isSubRouteDriven = false
 }

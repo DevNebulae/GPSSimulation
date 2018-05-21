@@ -1,9 +1,10 @@
 package com.rekeningrijden.simulation.route
 
 import com.rekeningrijden.simulation.coordinate.Coordinate
+import java.util.LinkedList
 
 interface SubRoute {
-    val coordinates: List<Coordinate>
+    val coordinates: LinkedList<Coordinate>
     val countryCode: String
     var isSubRouteDriven: Boolean
 

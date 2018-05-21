@@ -24,13 +24,10 @@ data class Journey(
     override fun run() {
         while (!route.isRouteDriven) {
             val sr = findSubRouteThatIsNotDrivenYet()
+            val iterator = sr.coordinates.iterator()
 
-            var indexesTravelled = 0
-            while (!sr.isSubRouteDriven) {
-                val coor = sr.getNextCoordinateAtIndex(indexesTravelled)
-                indexesTravelled++
-
-                if (coor == null) break
+            while (iterator.hasNext()) {
+                val coor = iterator.next()
 
                 val dto = TransLocationDto(
                     coor.latitude.toString(),
