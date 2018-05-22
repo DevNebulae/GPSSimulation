@@ -5,7 +5,6 @@ import com.rekeningrijden.europe.dtos.TransLocationDto
 import com.rekeningrijden.simulation.car.Car
 import com.rekeningrijden.simulation.math.distance
 import com.rekeningrijden.simulation.route.Route
-import com.rekeningrijden.simulation.route.SubRoute
 import com.rekeningrijden.simulation.services.SimulationService
 import com.rekeningrijden.simulation.services.MessageService
 import org.slf4j.LoggerFactory
@@ -36,57 +35,50 @@ class Journey : Thread() {
     }
 
     override fun run() {
-        while (!route.isRouteDriven) {
-            val sr = findSubRouteThatIsNotDrivenYet()
-            val iterator = Iterators.peekingIterator(sr.coordinates.iterator())
+        while (isAlive) {
+            val routeIterator = route.subRoutes.iterator()
 
-            while (iterator.hasNext()) {
-                val coor = iterator.next()
+            while (routeIterator.hasNext()) {
+                val subRoute = routeIterator.next()
+                val coordinateIterator = Iterators.peekingIterator(subRoute.coordinates.iterator())
 
-                val dto = TransLocationDto(
-                    coor.latitude.toString(),
-                    coor.longitude.toString(),
-                    Instant.now().toString(),
-                    car.id.toString(),
-                    car.country
-                )
-                messageService.sendTransLocation(sr.countryCode, dto)
-                logger.debug("Lat: ${coor.latitude} - Lon: ${coor.longitude}")
+                while (coordinateIterator.hasNext()) {
+                    val coordinate = coordinateIterator.next()
 
-                /**
-                 * Determine the delay until the next coordinate is generated.
-                 */
-                if (iterator.hasNext())
-                    iterator.peek().let {
-                        val distance = distance(coor.latitude, coor.longitude, it.latitude, it.longitude)
-                        /**
-                         * Calculate the sleep time in _milliseconds_. Both the
-                         * distance and speed of the car are in _hours_ and
-                         * _kilometers_, so the result of the division is in
-                         * _hours_.
-                         */
-                        val delay = distance / car.speed * 3600000
-                        Thread.sleep(delay.toLong())
-                    }
-            }
+                    val dto = TransLocationDto(
+                        coordinate.latitude.toString(),
+                        coordinate.longitude.toString(),
+                        Instant.now().toString(),
+                        car.id.toString(),
+                        car.country
+                    )
+                    messageService.sendTransLocation(subRoute.countryCode, dto)
+                    logger.debug("Lat: ${coordinate.latitude} - Lon: ${coordinate.longitude}")
 
-            if (route.isRouteDriven) {
+                    /**
+                     * Determine the delay until the next coordinate is generated.
+                     */
+                    if (coordinateIterator.hasNext())
+                        coordinateIterator.peek().let {
+                            val distance = distance(coordinate.latitude, coordinate.longitude, it.latitude, it.longitude)
+                            /**
+                             * Calculate the sleep time in _milliseconds_. Both the
+                             * distance and speed of the car are in _hours_ and
+                             * _kilometers_. To avoid errors in the decimal places,
+                             * the values are re-calculated to be in _meters_ and
+                             * _seconds_.
+                             */
+                            val delay = (distance * 1000) / (car.speed / 3.6) * 1000
+                            Thread.sleep(delay.toLong())
+                        }
+                }
+
+                // TODO("Add variable delay")
                 logger.debug("Thread sleeping for 15 minutes")
                 TimeUnit.MINUTES.sleep(15)
                 this.route = simulationService.newRoute
             }
         }
-    }
-
-    private fun findSubRouteThatIsNotDrivenYet(): SubRoute {
-        val srs = route.subRoutes
-        for (sr in srs) {
-            if (!sr.isSubRouteDriven) {
-                return sr
-            }
-        }
-        route.isRouteDriven = true
-        return srs[srs.size - 1]
     }
 
     companion object {
