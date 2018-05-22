@@ -43,7 +43,7 @@ class MessageService {
          */
         val props = AMQP.BasicProperties
             .Builder()
-            .contentType("application/json")
+            .contentType("text/plain")
             .deliveryMode(2)
             .build()
 
