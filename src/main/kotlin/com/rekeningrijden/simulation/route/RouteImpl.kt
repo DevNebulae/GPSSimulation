@@ -14,6 +14,4 @@ data class RouteImpl(
     override val routeName: String,
 
     override val subRoutes: List<SubRoute>
-) : Route {
-    override var isRouteDriven: Boolean = false
-}
+) : Route

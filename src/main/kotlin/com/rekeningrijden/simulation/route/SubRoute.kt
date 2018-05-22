@@ -18,20 +18,4 @@ interface SubRoute {
      * country code which indicates which country the car originates from.
      */
     val countryCode: String
-
-    /**
-     * TODO("Refactor away in favor of Iteratrors")
-     */
-    var isSubRouteDriven: Boolean
-
-    /**
-     * TODO("Refactor away in favor of Iteratrors")
-     */
-    fun getNextCoordinateAtIndex(index: Int): Coordinate? {
-        if (index >= coordinates.size) {
-            this.isSubRouteDriven = true
-            return null
-        }
-        return coordinates[index]
-    }
 }
