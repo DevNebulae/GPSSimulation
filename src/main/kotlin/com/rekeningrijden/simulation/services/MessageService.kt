@@ -5,23 +5,27 @@ import com.rabbitmq.client.AMQP
 import com.rekeningrijden.europe.dtos.TransLocationDto
 import com.rekeningrijden.simulation.gateway.Gateway
 import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.context.ApplicationContext
+import org.springframework.core.env.Environment
 import org.springframework.stereotype.Service
-import java.io.ByteArrayOutputStream
-import java.io.ObjectOutputStream
 
 @Service
 class MessageService {
+    @Autowired
+    private lateinit var environment: Environment
+
     private val mapper = ObjectMapper()
     private val gateways = mutableMapOf<String, Gateway>()
 
-    init {
+    fun initialize() {
         val countries = arrayOf("BE", "DE", "FI", "IT", "NL")
 
         countries.forEach {
-            val host = System.getProperty(createHostProperty(it))
+            val host = environment.getProperty(createProperty(it))
 
             if (host == null)
-                logger.error("Could not connect with the $it queue. If this is intended, please ignore this message. Otherwise, add the queue via a command line property:\n    -D${createHostProperty(it)}=<ip-address>")
+                logger.error("Could not connect with the $it queue. If this is intended, please ignore this message. Otherwise, add the queue via a command line property:\n    -D${createProperty(it)}=<ip-address>")
             else
                 gateways[it] = createGateway(it, host)
         }
@@ -64,7 +68,7 @@ class MessageService {
         return gateway
     }
 
-    fun createHostProperty(countryCode: String): String = "simulation.rabbitmq.${countryCode.toLowerCase()}"
+    fun createProperty(countryCode: String): String = "simulation.rabbitmq.${countryCode.toLowerCase()}"
 
     fun createQueueName(countryCode: String): String = "rekeningrijden.simulation.${countryCode.toLowerCase()}"
 
