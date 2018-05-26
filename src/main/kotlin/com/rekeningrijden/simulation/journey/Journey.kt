@@ -37,7 +37,7 @@ class Journey : Thread() {
         this.car = car
         this.route = route
 
-        if (restingDelay == null || restingDelay!! < 5) {
+        if (restingDelay == null || restingDelay!! < 10) {
             logger.error("The resting delay for a car after it has finished its route was either not set or was too low. Please specify a delay of at least 5 minutes via:\n    --simulation.delay=5")
             System.exit(1)
         }
