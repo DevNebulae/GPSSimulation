@@ -5,10 +5,11 @@ import com.rekeningrijden.europe.dtos.TransLocationDto
 import com.rekeningrijden.simulation.car.Car
 import com.rekeningrijden.simulation.math.distance
 import com.rekeningrijden.simulation.route.Route
-import com.rekeningrijden.simulation.services.SimulationService
 import com.rekeningrijden.simulation.services.MessageService
+import com.rekeningrijden.simulation.services.SimulationService
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Scope
 import org.springframework.stereotype.Component
 import java.time.Instant
@@ -26,17 +27,27 @@ class Journey : Thread() {
     @Autowired
     private lateinit var messageService: MessageService
 
+    @Value("\${simulation.delay}")
+    private var restingDelay: Long? = null
+
     private lateinit var car: Car
     private lateinit var route: Route
 
     fun initialize(car: Car, route: Route) {
         this.car = car
         this.route = route
+
+        if (restingDelay == null || restingDelay!! < 5) {
+            logger.error("The resting delay for a car after it has finished its route was either not set or was too low. Please specify a delay of at least 5 minutes via:\n    --simulation.delay=5")
+            System.exit(1)
+        }
     }
 
     override fun run() {
         while (!isInterrupted) {
             val routeIterator = route.subRoutes.iterator()
+
+            logger.info("Car with tracker id ${car.id} is going to travel route ${route.routeName} with ${route.subRoutes.map { it.coordinates.size }.sum()} coordinates")
 
             while (routeIterator.hasNext()) {
                 val subRoute = routeIterator.next()
@@ -72,12 +83,11 @@ class Journey : Thread() {
                             Thread.sleep(delay.toLong())
                         }
                 }
-
-                // TODO("Add variable delay")
-                logger.debug("Thread sleeping for 15 minutes")
-                TimeUnit.MINUTES.sleep(15)
-                this.route = simulationService.newRoute
             }
+
+            logger.info("Car with tracker id ${car.id} is currently resting for ${restingDelay} minutes")
+            TimeUnit.MINUTES.sleep(restingDelay!!)
+            this.route = simulationService.newRoute
         }
     }
 
