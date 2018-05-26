@@ -1,22 +1,24 @@
 # Simulation system
 
-## Command line properties
+## Compiling the jar
 
-The following command line properties are enabled by providing them as follows:
-`-Dsimulation.log=/var/log/simulation.log`. Please read the rules about these
-command line properties to ensure which properties are required.
+To compile the code, run: `gradle build`.
 
-```
-# File path to where the Log4J2 will write its log messages.
-simuatlion.log=<string>
+## Executing the jar
 
-# These rules all require a valid URL pointing to your RabbitMQ server. If the
-# URL cannot be connected to, your messages will be lost. At least supply the
-# URL for your own country. If there are no RabbitMQ instances which can be
-# connected to, the simulation system will crash.
-simulation.rabbitmq.be=<string>
-simulation.rabbitmq.de=<string>
-simulation.rabbitmq.fi=<string>
-simulation.rabbitmq.it=<string>
-simulation.rabbitmq.nl=<string>
-```
+There are several command line arguments you need to define before the Java
+application will run. Following a list of arguments, specifying which arguments
+are required and which are optional:
+
+* `--simulation.delay`: A number between 5 and ∞ specifying the time a car rests
+before it starts driving a new route. The delay will be triggered when every
+partial of a route has been driven. This argument is required.
+* `--simulation.rabbitmq.<country-code>`: An IP address the simulation system
+can send the appropriate translocations to. At least one argument must be
+defined, otherwise all messages the simulation system produces will be lost.
+* `--logging.file`: A file location where you want the logs to be produced. This
+argument is optional, but I would recommend defining it for debugging purposes.
+
+An example on how to run the JAR: 
+
+`java -jar rekeningrijden-simulation.jar --logging.file=/var/log/simulation.log --simulation.delay=15 --simulation.rabbitmq.it=localhost`
