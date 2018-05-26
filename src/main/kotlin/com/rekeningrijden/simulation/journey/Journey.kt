@@ -35,7 +35,7 @@ class Journey : Thread() {
     }
 
     override fun run() {
-        while (isAlive) {
+        while (!isInterrupted) {
             val routeIterator = route.subRoutes.iterator()
 
             while (routeIterator.hasNext()) {
