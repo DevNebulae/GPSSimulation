@@ -1,10 +1,13 @@
-package com.rekeningrijden.simulation.simulation
+package com.rekeningrijden.simulation.gateway
 
 import com.rabbitmq.client.Channel
 import com.rabbitmq.client.Connection
 import com.rabbitmq.client.ConnectionFactory
-import org.apache.log4j.Logger
+import org.slf4j.LoggerFactory
 
+/**
+ * TODO("Convert to Spring configuration")
+ */
 class Gateway {
     private val factory: ConnectionFactory
     var connection: Connection? = null
@@ -20,13 +23,13 @@ class Gateway {
             connection = factory.newConnection()
             channel = connection?.createChannel()
         } catch (e: Exception) {
-            logger.fatal("Connection with the message queue could not be established.")
-            logger.fatal(e.toString())
+            logger.error("Connection with the message queue could not be established.")
+            logger.error(e.toString())
             System.exit(1)
         }
     }
 
     companion object {
-        private val logger = Logger.getLogger(Gateway::class.java)
+        private val logger = LoggerFactory.getLogger(Gateway::class.java)
     }
 }
