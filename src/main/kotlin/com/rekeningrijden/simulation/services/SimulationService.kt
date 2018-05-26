@@ -34,13 +34,8 @@ class SimulationService {
     }
 
     val newRoute: Route
-        get() {
-            val rndmRouteIndex = rndm.nextInt(routes.size)
-            val route = routes[rndmRouteIndex]
-            route.isRouteDriven = false
-            route.setAllSubRoutesToFalse()
-            return route
-        }
+        get() =
+            routes[rndm.nextInt(routes.size)]
 
     fun startSimulation() {
         cars.forEach {
