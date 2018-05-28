@@ -4,8 +4,6 @@
     <bytecodeTargetLevel>
       <module name="SimulatieSysteemERR_main" target="1.8" />
       <module name="SimulatieSysteemERR_test" target="1.8" />
-      <module name="SimulationSystemERR_main" target="1.8" />
-      <module name="SimulationSystemERR_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
