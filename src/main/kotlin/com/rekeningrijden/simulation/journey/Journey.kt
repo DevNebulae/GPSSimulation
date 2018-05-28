@@ -85,7 +85,7 @@ class Journey : Thread() {
                 }
             }
 
-            logger.info("Car with tracker id ${car.id} is currently resting for ${restingDelay} minutes")
+            logger.info("Car with tracker id ${car.id} is currently resting for $restingDelay minutes")
             TimeUnit.MINUTES.sleep(restingDelay!!)
             this.route = simulationService.newRoute
         }
