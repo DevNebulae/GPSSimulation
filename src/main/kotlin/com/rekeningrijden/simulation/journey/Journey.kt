@@ -57,8 +57,8 @@ class Journey : Thread() {
                     val coordinate = coordinateIterator.next()
 
                     val dto = TransLocationDto(
-                        coordinate.latitude.toString(),
-                        coordinate.longitude.toString(),
+                        coordinate.latitude,
+                        coordinate.longitude,
                         Instant.now().toString(),
                         car.id.toString(),
                         car.country
