@@ -37,8 +37,8 @@ class Journey : Thread() {
         this.car = car
         this.route = route
 
-        if (restingDelay == null || restingDelay!! < 10) {
-            logger.error("The resting delay for a car after it has finished its route was either not set or was too low. Please specify a delay of at least 5 minutes via:\n    --simulation.delay=5")
+        if (restingDelay == null || restingDelay!! < MINIMUM_DELAY) {
+            logger.error("The resting delay for a car after it has finished its route was either not set or was too low. Please specify a delay of at least ${MINIMUM_DELAY} minutes via:\n    --simulation.delay=${MINIMUM_DELAY}")
             System.exit(1)
         }
     }
@@ -93,5 +93,10 @@ class Journey : Thread() {
 
     companion object {
         private val logger = LoggerFactory.getLogger(Journey::class.java)
+
+        /**
+         * The minimum resting delay of a car in minutes.
+         */
+        private const val MINIMUM_DELAY = 10
     }
 }

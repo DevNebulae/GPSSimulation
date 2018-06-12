@@ -47,7 +47,7 @@ class RouteCommandLineRunner : CommandLineRunner {
                  * 3: country code via the ISO specification, two
                  * capitalized alphabetical characters.
                  */
-                val pattern = Pattern.compile("([a-zA-Z-]+)/([A-Z]+)-([A-Z]{2})")
+                val pattern = Pattern.compile("((?:(?:[a-zA-Z-]+)/)+)([A-Z]+)-([A-Z]{2})")
                 val matcher = pattern.matcher(routesRootPath.relativize(subrouteResource.uri).toString())
 
                 if (!matcher.find()) {
@@ -69,7 +69,7 @@ class RouteCommandLineRunner : CommandLineRunner {
                     .collect(Collectors.toList())
                 val subRoute = SubRouteImpl(countryCode, LinkedList(tracks))
 
-                routeService.save(routeName, subRoute)
+                routeService.save(routeName.substring(0, routeName.length - 1), subRoute)
             }
 
         logger.info("${routeService.subroutes.values.map { it.size }.sum()} subroutes have been initialized")
