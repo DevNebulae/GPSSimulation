@@ -38,7 +38,7 @@ class Journey : Thread() {
         this.route = route
 
         if (restingDelay == null || restingDelay!! < MINIMUM_DELAY) {
-            logger.error("The resting delay for a car after it has finished its route was either not set or was too low. Please specify a delay of at least ${MINIMUM_DELAY} minutes via:\n    --simulation.delay=${MINIMUM_DELAY}")
+            logger.error("The resting delay for a car after it has finished its route was either not set or was too low. Please specify a delay of at least $MINIMUM_DELAY minutes via:\n    --simulation.delay=$MINIMUM_DELAY")
             System.exit(1)
         }
     }
