@@ -10,3 +10,6 @@ trim_trailing_whitespace = true
 
 [*.{kt,kts}]
 continuation_indent_size = 4
+
+[*.{yml,yaml}]
+indent_size = 2
